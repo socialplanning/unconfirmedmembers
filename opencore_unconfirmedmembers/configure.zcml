@@ -1,0 +1,12 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+	   >
+
+  <browser:page
+     for="opencore.interfaces.IOpenSiteRoot"
+     permission="cmf.ModifyPortalContent"
+     name="review_members"
+     class="opencore_unconfirmedmembers.browser.UnconfirmedMembers"
+     />
+
+</configure>

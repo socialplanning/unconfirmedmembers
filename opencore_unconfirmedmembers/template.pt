@@ -1,0 +1,77 @@
+<html  i18n:domain="opencore" metal:use-macro="here/@@standard_macros/master">
+  <head>
+    <title metal:fill-slot="title"
+           tal:content="string:Manage Site Members - ${view/window_title}" />
+  </head>
+  <body>
+    <div metal:fill-slot="content">
+    
+  <div class="oc-widget oc-widget-dataTable" tal:define="item_collection view/list">
+
+    <h2 class="oc-dataTable-heading">
+      unconfirmed members (<span tal:replace="python:len(item_collection)"/>)
+    </h2>
+
+    <form method="POST"
+	  tal:define="item_type string:foo"
+          tal:attributes="name item_type;
+                          id item_type;
+                          action view/request/ACTUAL_URL">
+      <table class="oc-dataTable" cellpadding="0" cellspacing="0">
+
+        <thead>
+          <tr>
+            <th class="oc-dataTable-checkBoxColumn">
+	      <input type="checkbox" class="oc-checkAll" /></th>
+            <th scope="col" i18n:translate="">Username</th>
+            <th scope="col" i18n:translate="">Email</th>
+            <th scope="col" i18n:translate="">Date requested</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tal:items repeat="item item_collection">
+	    <tr tal:attributes="id item/getId">
+
+	      <td>
+		<input type="checkbox" name="checked:list"
+		       tal:attributes="value item/getId" />
+	      </td>
+
+	      	      
+	      <td><span tal:replace="item/getId"/></td>
+	      <td><span tal:replace="item/getEmail"/></td>
+
+	      <td><span tal:replace="item/created/opencore:pretty_date"/></td>
+
+	    </tr>
+          </tal:items>
+        </tbody>
+
+      </table>
+
+      <ul class="oc-actions oc-dataTable-actions">
+
+	<li>
+	  <input type="submit" name="task|batch_checked|confirm"
+		 value="Confirm" i18n:attributes="value" class="oc-button" />
+	</li>
+
+<tal:comment replace="nothing">
+	<li>
+	  <input type="submit" name="task|batch_checked|delete"
+		 value="Remove" i18n:attributes="value" class="oc-button" />
+	</li>
+	<li>
+	  <input type="submit" name="task|batch_checked|remind"
+		 value="Remind" i18n:attributes="value" class="oc-button" />
+	</li>
+</tal:comment>
+
+      </ul>
+    </form>
+  </div> <!-- end .oc-widget-dataTable -->
+
+</div>
+</body>
+</html>
